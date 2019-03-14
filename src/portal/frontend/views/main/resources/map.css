@@ -1,0 +1,15 @@
+.map-container {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	background: black;
+	opacity: 0.85;
+	position: fixed;
+	bottom: 0;
+}
+
+#map-reference {
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+}
