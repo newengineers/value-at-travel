@@ -1,6 +1,6 @@
 // GENERATE MAP
 
-var mymap = L.map('mapid').setView([52.368, 5.5], 9);
+let map_element = L.map('map-reference').setView([52.368, 5.5], 9);
 
 // Mapbox maps tile
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -8,19 +8,19 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     maxZoom: 18,
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1Ijoia3dhbnN1cHAiLCJhIjoiY2p0NjZwZXplMDNoczQ0cWwzZ3IzNHJsdiJ9.zqrnapW2W_gpZrtLu5dSMQ'
-}).addTo(mymap);
+}).addTo(map_element);
 
-mymap.invalidateSize();
+map_element.invalidateSize();
 
 // // OSM original tiles
 // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 //         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//     }).addTo(mymap);
+//     }).addTo(map);
 
 
 // INTERACTION WITH ITEM
-var item = document.getElementsByClassName('item');
-var marker = new L.marker([52.368, 5.5]);
+let item = document.getElementsByClassName('item');
+let marker = new L.marker([52.368, 5.5]);
 
 
 
