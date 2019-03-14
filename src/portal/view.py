@@ -6,14 +6,14 @@ from portal.resource import Resource
 
 stylesheets = [
     'normalize',
-    # 'bootstrap.min',
-    # 'bootstrap-theme.min',
+    'bootstrap.min',
+    'bootstrap-theme.min',
     'main'
 ]
 
 scripts = [
     'jquery.min',
-    # 'bootstrap.min',
+    'bootstrap.min',
     'main'
 ]
 
