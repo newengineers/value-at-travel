@@ -3,15 +3,22 @@ $(function(){
     $('#account-login').submit(function(event){
         event.preventDefault();
 
-        let user_name = $("#username-login");
-        let password = $("#username-password");
+        let user_name = $("#username-login").val();
+        let password = $("#username-password").val();
 
-        $.post(window.location.origin+'/ajax/request-login', {
-            user: user_name,
-            password: password
-        }, function(response){
-            alert(response);
+        $.ajax({
+            url: window.location.origin+'/ajax/request-login',
+            type: 'POST',
+            data: {
+                user: user_name,
+                password: password
+            },
+            success: function(response){
+
+                alert('Welkom terug!');
+
+                window.location.href = window.location.origin;
+            }
         });
-
     })
 });
