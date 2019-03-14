@@ -4,6 +4,20 @@ from markupsafe import Markup
 from portal.resource import Resource
 
 
+stylesheets = [
+    'normalize',
+    'bootstrap.min',
+    'bootstrap-theme.min',
+    'main'
+]
+
+scripts = [
+    'jquery.min',
+    'bootstrap.min',
+    'main'
+]
+
+
 class View:
 
     path_base_view = 'base.html'
@@ -20,7 +34,7 @@ class View:
         self.arguments = args or {}
         self.resources = resources or {}
 
-    def _create_resources(self, resource: Resource, template: str) -> str:
+    def _construct_resources(self, resource: Resource, template: str) -> str:
         markup = ''
         for key, value in self.resources.items():
             if isinstance(value, Resource) and value is resource:
@@ -31,20 +45,21 @@ class View:
 
         return markup
 
-    def _render_controller(self) -> str:
-        ctrl = self._create_resources(Resource.StyleSheet, '<link rel="stylesheet" type="text/css" href="%s"/>')
+    def _construct_controller(self) -> str:
+        ctrl = self._construct_resources(Resource.StyleSheet, '<link rel="stylesheet" type="text/css" href="%s"/>')
         ctrl += render_template(self.path_skeleton_name % self.controller, **self.arguments)
-        ctrl += self._create_resources(Resource.Script, '<script src="%s"></script>')
+        ctrl += self._construct_resources(Resource.Script, '<script src="%s"></script>')
 
         return ctrl
 
-    def _render_view(self) -> str:
+    def _construct_view(self) -> str:
         view = self.path_view % self.controller+self.view+'.html'
         return render_template(view, **self.arguments)
 
     def render(self):
-        self.arguments['view'] = Markup(self._render_view())
-        self.arguments['controller'] = Markup(self._render_controller())
+        self.arguments['view'] = Markup(self._construct_view())
+        self.arguments['controller'] = Markup(self._construct_controller())
+        self.arguments['global_scripts'] = scripts
+        self.arguments['global_styling'] = stylesheets
 
         return render_template(self.path_base_view, **self.arguments)
-

@@ -1,12 +1,9 @@
 from flask import Blueprint
 
-from portal.resource import Resource
 from portal.view import View
 
 main_controller = Blueprint('main', __name__)
-resources = {
-    'temp.js': Resource.Script
-}
+resources = {}
 
 
 @main_controller.route('/')
