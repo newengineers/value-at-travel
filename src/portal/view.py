@@ -1,28 +1,41 @@
 from flask import Blueprint, url_for, render_template
 from markupsafe import Markup
 
+from portal.resource import Resource
+
 
 class View:
 
     path_base_view = 'base.html'
     path_view = 'views/%s/'
     path_skeleton_name = path_view+'_skeleton.html'
+    path_resources_folder = path_view+'resources/'
 
-    def __init__(self, controller: Blueprint, view: str = 'index', args: any = None):
+    def __init__(self, controller: Blueprint,
+                 view: str = 'index',
+                 args: any = None,
+                 resources: dict = None):
         self.controller = controller.name.lower()
         self.view = view
         self.arguments = args or {}
+        self.resources = resources or {}
 
-    def _append_resource(self, target_file: str, tmpl: str) -> str:
-        path = self.path_view % self.controller
-        path = url_for('static', filename=path+'_'+target_file)
+    def _create_resources(self, resource: Resource, template: str) -> str:
+        markup = ''
+        for key, value in self.resources.items():
+            if isinstance(value, Resource) and value is resource:
+                path = self.path_resources_folder % self.controller
+                path = url_for('static', filename=path+key)
 
-        return tmpl % path
+                markup += template % path
+
+        return markup
 
     def _render_controller(self) -> str:
-        ctrl = self._append_resource('style.css', '<link rel="stylesheet" type="text/css" href="%s"/>')
+        ctrl = self._create_resources(Resource.StyleSheet, '<link rel="stylesheet" type="text/css" href="%s"/>')
         ctrl += render_template(self.path_skeleton_name % self.controller, **self.arguments)
-        ctrl += self._append_resource('script.js', '<script src="%s"></script>')
+        ctrl += self._create_resources(Resource.Script, '<script src="%s"></script>')
+
         return ctrl
 
     def _render_view(self) -> str:
