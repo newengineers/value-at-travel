@@ -10,6 +10,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1Ijoia3dhbnN1cHAiLCJhIjoiY2p0NjZwZXplMDNoczQ0cWwzZ3IzNHJsdiJ9.zqrnapW2W_gpZrtLu5dSMQ'
 }).addTo(mymap);
 
+mymap.invalidateSize();
+
 // // OSM original tiles
 // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 //         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
