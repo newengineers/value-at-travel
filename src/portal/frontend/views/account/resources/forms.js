@@ -17,7 +17,7 @@ $(function(){
 
                 alert('Welkom terug!');
 
-                window.location.href = window.location.origin;
+                window.location.href = window.location.origin + '/map';
             }
         });
     })
