@@ -1,6 +1,7 @@
+
 // GENERATE MAP
 
-let map_element = L.map('map-reference').setView([52.368, 5.5], 9);
+var map_element = L.map('map-reference').setView([52.368, 5.5], 9);
 
 // Mapbox maps tile
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -19,9 +20,19 @@ map_element.invalidateSize();
 
 
 // INTERACTION WITH ITEM
-let item = document.getElementsByClassName('item');
-let marker = new L.marker([52.368, 5.5]);
+var marker = L.marker([52.368, 5.5]).addTo(map_element);
 
+//var popup = L.popup();
+//
+function onMapClick(e) {
+    var newMarker = new L.marker(e.latlng).addTo(map_element);
+//    popup
+//        .setLatLng(e.latlng)
+//        .setContent("You clicked the map at " + e.latlng.toString())
+//        .openOn(mymap);
+}
+
+map_element.on('click', onMapClick);
 
 
 // $(item).hover(function() {
