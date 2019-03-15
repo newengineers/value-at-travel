@@ -15,7 +15,7 @@ $(function(){
             },
             success: function(response){
 
-                alert('Welkom terug!');
+                alert('Welkom terug, DB response: '+response);
 
                 window.location.href = window.location.origin;
             }
