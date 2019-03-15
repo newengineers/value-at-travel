@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 
 from portal.authentication import AuthSession
 
@@ -9,5 +9,7 @@ ajax_controller = Blueprint('ajax', __name__)
 def request_login():
     auth_session = AuthSession()
     auth_session.construct(1)
+    username = request.form.get('user')
+    print("Username: ", username)
 
     return '200'
