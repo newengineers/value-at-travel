@@ -10,8 +10,12 @@ resources = {
     "map.css":  Resource.StyleSheet
 }
 
-
 @main_controller.route('/')
-@auth_required
 def index():
+    return View(main_controller).render()
+
+@main_controller.route('/maps')
+@auth_required
+def maps():
     return View(main_controller, resources=resources).render()
+
