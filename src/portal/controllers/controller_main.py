@@ -15,7 +15,6 @@ def index():
 
 
 @main_controller.route('/map')
-@auth_required
 def map():
     return View(main_controller, view="map", resources={
         "map.js": Resource.Script,

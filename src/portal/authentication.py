@@ -2,13 +2,15 @@ from flask import session
 from functools import wraps
 from flask import redirect, url_for
 
+LOGGED_IN = False
+
 
 def auth_required(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
         usr_session = AuthSession()
-        if not usr_session.is_authorized():
+        if not LOGGED_IN:  # usr_session.is_authorized():
             return redirect(url_for('account.index'))
 
         return f(*args, **kwargs)

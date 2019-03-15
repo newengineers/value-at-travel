@@ -6,17 +6,14 @@ $(function(){
         let user_name = $("#username-login").val();
         let password = $("#username-password").val();
 
-        $.ajax({
-            url: window.location.origin+'/ajax/request-login',
-            type: 'POST',
-            data: {
-                user: user_name,
-                password: password
-            },
-            success: function(response){
+        console.log(user_name);
+        $.get(window.location.origin+'/ajax/request-login', {
+            user: user_name,
+            password: password
+        }, function(response){
+            alert('Login resultaat: '+response);
 
-                alert('Welkom terug!');
-
+            if(response === '200'){
                 window.location.href = window.location.origin + '/map';
             }
         });
