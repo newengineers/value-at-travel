@@ -26,10 +26,6 @@ var marker = L.marker([52.368, 5.5]).addTo(map_element);
 //
 function onMapClick(e) {
     var newMarker = new L.marker(e.latlng).addTo(map_element);
-//    popup
-//        .setLatLng(e.latlng)
-//        .setContent("You clicked the map at " + e.latlng.toString())
-//        .openOn(mymap);
 }
 
 map_element.on('click', onMapClick);
