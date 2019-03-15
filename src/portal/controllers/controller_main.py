@@ -5,17 +5,18 @@ from portal.resource import Resource
 from portal.view import View
 
 main_controller = Blueprint('main', __name__)
-resources = {
-    "map.js":   Resource.Script,
-    "map.css":  Resource.StyleSheet
-}
 
 @main_controller.route('/')
 def index():
-    return View(main_controller).render()
+    return View(main_controller, resources={
+        "index.css": Resource.StyleSheet
+    }).render()
 
-@main_controller.route('/maps')
+@main_controller.route('/map')
 @auth_required
-def maps():
-    return View(main_controller, resources=resources).render()
+def map():
+    return View(main_controller, resources={
+        "map.js": Resource.Script,
+        "map.css": Resource.StyleSheet
+    }).render()
 
