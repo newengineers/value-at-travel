@@ -18,4 +18,7 @@ def request_login():
             return '200'
         else:
             return 'error'
+    auth_session.construct(1)
+    username = request.form.get('user')
+    print("Username: ", username)
 

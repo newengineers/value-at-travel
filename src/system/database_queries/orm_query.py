@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, DATETIME, ForeignKey
 from system.database_queries.base import Base, session_factory
+from base import Base, session_factory
 session = session_factory()
 
 class UserDefinition(Base):
@@ -11,8 +12,8 @@ class UserDefinition(Base):
     def __init__(self, user_definition_id, user_definition):
         self.user_definition_id = user_definition_id
         self.user_definition = user_definition
-    @staticmethod
-    def get_user_definition():
+
+    def get_user_definition(self):
         user_def = session.query(UserDefinition).all()
         for user_types in user_def:
             print("Type: ", user_types.user_definition)
@@ -40,6 +41,11 @@ class UserInfo(Base):
             #print("user_definition_id: ", user_types.user_definition_id)
             #todo insert data in dict
         return user_info
+        for user_types in user_info:
+            print("Mail: ", user_types.email_adress)
+            print("Username: ", user_types.username)
+            print("Password: ", user_types.password)
+            print("Password: ", user_types.user_definition_id)
     @staticmethod
     def register_user(email_adress: str, username: str, password: str, user_definition_id: int):
         user = UserInfo(email_adress=email_adress, username=username, password=password, user_definition_id=user_definition_id)
