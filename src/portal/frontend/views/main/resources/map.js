@@ -18,19 +18,22 @@ map_element.invalidateSize();
 //         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 //     }).addTo(map);
 
+// Locate
+// on locate, zoom and keep watch
+map_element.locate({setView: true,
+			maxZoom: 16,
+			watch: true
+});
 
-// INTERACTION WITH ITEM
-// var marker = L.marker([52.368, 5.5]).addTo(map_element);
+map_element.on('locationfound', function(e) {
+	var radius = e.accuracy / 10;
+	L.marker(e.latlng).addTo(map_element)
+		.bindPopup("You are within " + radius + " meters from this point").openPopup();
+	L.circle(e.latlng, radius).addTo(map_element);
+});
 
-//var popup = L.popup();
-//
-// function onMapClick(e) {
-//     var newMarker = new L.marker(e.latlng).addTo(map_element);
-// //    popup
-// //        .setLatLng(e.latlng)
-// //        .setContent("You clicked the map at " + e.latlng.toString())
-// //        .openOn(mymap);
-// }
+
+// INTERACTION WITH MAP
 
 var marker = {};
 // map_element.on('click', onMapClick);
@@ -44,14 +47,3 @@ map_element.on('click', function(e) {
 	// add marker to clicked location
 	marker = L.marker(e.latlng).addTo(map_element);
 });
-
-
-// $(item).hover(function() {
-// 	$(this).toggleClass('marker');
-// 	map.addLayer(marker);
-// 	$('#map-caption').text($(this).text());
-// }, function() {
-// 	$(this).toggleClass('marker');
-// 	map.removeLayer(marker);
-// 	$('#map-caption').text('Hover over item');
-// });
