@@ -20,19 +20,30 @@ map_element.invalidateSize();
 
 
 // INTERACTION WITH ITEM
-var marker = L.marker([52.368, 5.5]).addTo(map_element);
+// var marker = L.marker([52.368, 5.5]).addTo(map_element);
 
 //var popup = L.popup();
 //
-function onMapClick(e) {
-    var newMarker = new L.marker(e.latlng).addTo(map_element);
-//    popup
-//        .setLatLng(e.latlng)
-//        .setContent("You clicked the map at " + e.latlng.toString())
-//        .openOn(mymap);
-}
+// function onMapClick(e) {
+//     var newMarker = new L.marker(e.latlng).addTo(map_element);
+// //    popup
+// //        .setLatLng(e.latlng)
+// //        .setContent("You clicked the map at " + e.latlng.toString())
+// //        .openOn(mymap);
+// }
 
-map_element.on('click', onMapClick);
+var marker = {};
+// map_element.on('click', onMapClick);
+map_element.on('click', function(e) {
+	// location = e.latlng
+
+	if (marker != undefined) {
+		map_element.removeLayer(marker);
+	}
+
+	// add marker to clicked location
+	marker = L.marker(e.latlng).addTo(map_element);
+});
 
 
 // $(item).hover(function() {
