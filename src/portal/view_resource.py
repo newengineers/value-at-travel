@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Resource(Enum):
+class ViewResource(Enum):
 
     StyleSheet = 'css',
     Script = 'js'
