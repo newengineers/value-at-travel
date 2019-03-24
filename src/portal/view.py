@@ -1,20 +1,22 @@
 from flask import Blueprint, url_for, render_template
 from markupsafe import Markup
 
-from portal.resource import Resource
+from portal.view_resource import ViewResource
 
 
 stylesheets = [
     'normalize',
     'bootstrap.min',
     'bootstrap-theme.min',
+    'font-awesome.min',
     'main'
 ]
 
 scripts = [
     'jquery.min',
     'bootstrap.min',
-    'main'
+    'main',
+    'ajax'
 ]
 
 
@@ -34,10 +36,10 @@ class View:
         self.arguments = args or {}
         self.resources = resources or {}
 
-    def _construct_resources(self, resource: Resource, template: str) -> str:
+    def _construct_resources(self, resource: ViewResource, template: str) -> str:
         markup = ''
         for key, value in self.resources.items():
-            if isinstance(value, Resource) and value is resource:
+            if isinstance(value, ViewResource) and value is resource:
                 path = self.path_resources_folder % self.controller
                 path = url_for('static', filename=path+key)
 
@@ -46,9 +48,9 @@ class View:
         return markup
 
     def _construct_controller(self) -> str:
-        ctrl = self._construct_resources(Resource.StyleSheet, '<link rel="stylesheet" type="text/css" href="%s"/>')
+        ctrl = self._construct_resources(ViewResource.StyleSheet, '<link rel="stylesheet" type="text/css" href="%s"/>')
         ctrl += render_template(self.path_skeleton_name % self.controller, **self.arguments)
-        ctrl += self._construct_resources(Resource.Script, '<script src="%s"></script>')
+        ctrl += self._construct_resources(ViewResource.Script, '<script src="%s"></script>')
 
         return ctrl
 

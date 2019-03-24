@@ -1,19 +1,20 @@
-<div class="container">
-    <form class="form-horizontal" id="account-login" method="post">
-        <div class="form-group">
-            <label>
-            Username
-            <input class="form-control"  id="username-login" type="text" name="username"/>
-        </label>
-
+<div id="login-page">
+    <div class="form-login">
+        <div class="form-feedback">
         </div>
-        <div class="form-group">
-            <label>
-            Password
-            <input class="form-control" id="username-password" type="password" name="password">
-        </label>
-        </div>
+        <form method="post" class="register-form" id="form-register">
+            <input name="email" type="email" placeholder="email address" id="register_email"/>
+            <input name="password" type="password" placeholder="password" id="register_pw"/>
+            <input name="password_validated" type="password" placeholder="confirm password" id="register_pw_confirm"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Login</a></p>
+        </form>
 
-        <input class="form-control"  type="submit" value="Login">
-    </form>
+        <form method="post" class="login-form" id="form-login">
+            <input name="email" type="email" placeholder="email address" id="login_email"/>
+            <input name="password" type="password" placeholder="password" id="login_pw"/>
+            <button>login</button>
+            <p class="message">Not registered? <a href="#">Register an account</a></p>
+        </form>
+    </div>
 </div>
