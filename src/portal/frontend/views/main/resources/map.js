@@ -19,7 +19,7 @@ map_element.invalidateSize();
 //     }).addTo(map);
 
 // Locate
-// variable to contain current location
+// initiate list variable to contain current location latitude and longitude
 var currentLocation = [0, 0]
 // on locate, zoom and keep watch
 map_element.locate({setView: true,
@@ -29,7 +29,8 @@ map_element.locate({setView: true,
 
 map_element.on('locationfound', function(e) {
 	var radius = e.accuracy / 10;
-	console.log(e.latlng)
+	currentLocation = [e.latlng.lat, e.latlng.lng]
+	console.log("currentLocation: ", currentLocation)
 	L.marker(e.latlng).addTo(map_element)
 		.bindPopup("You are within " + radius + " meters from this point").openPopup();
 	L.circle(e.latlng, radius).addTo(map_element);
@@ -53,11 +54,13 @@ map_element.on('locationfound', function(e) {
 
 
 // INTERACTION WITH MAP
-
+// initiate list variable to store clicked location latitude and longitude
+var clickedLocation = [0, 0]
 var marker = {};
 // map_element.on('click', onMapClick);
 map_element.on('click', function(e) {
-	// location = e.latlng
+	 clickedLocation = [e.latlng.lat, e.latlng.lng]
+	 console.log("clickedLocation: ", clickedLocation)
 
 	if (marker != undefined) {
 		map_element.removeLayer(marker);
