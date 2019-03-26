@@ -13,11 +13,11 @@ class Database:
 
     _instance = None
     _engine_info = {
-        "drivername": "mysql",
+        "drivername": "postgresql",
         "database": "value_at_travel",
-        "username": "root",
-        "password": "",
-        "port": 3307
+        "username": "enterprisedb",
+        "password": ".root",
+        "port": 8888
     }
 
     def __init__(self):
