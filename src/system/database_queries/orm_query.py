@@ -46,6 +46,7 @@ class UserInfo(Base):
             print("Username: ", user_types.username)
             print("Password: ", user_types.password)
             print("Password: ", user_types.user_definition_id)
+
     @staticmethod
     def register_user(email_adress: str, username: str, password: str, user_definition_id: int):
         user = UserInfo(email_adress=email_adress, username=username, password=password, user_definition_id=user_definition_id)
@@ -54,6 +55,6 @@ class UserInfo(Base):
         print("User registered")
 
 #user_info = UserInfo()
-UserInfo.get_user_info("ns")
-#UserInfo.register_user("aapie@slinger.nl", "aapie", "banaan123", 1)
+#UserInfo.get_user_info("ns")
+UserInfo.register_user("aapie@slinger.nl", "aapie", "banaan123", 1)
 
