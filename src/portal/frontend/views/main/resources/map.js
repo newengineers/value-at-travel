@@ -63,9 +63,14 @@ control = L.Routing.control({
         L.latLng(),
         L.latLng()
     ],
-    routeWhileDragging: true,
+    router: L.Routing.mapbox('pk.eyJ1Ijoia3dhbnN1cHAiLCJhIjoiY2p0NjZwZXplMDNoczQ0cWwzZ3IzNHJsdiJ9.zqrnapW2W_gpZrtLu5dSMQ',{
+    	//possible profiles: mapbox/driving-traffic, mapbox/driving, mapbox/walking, mapbox/cycling
+    	profile: 'mapbox/driving'
+		}),
 	reverseWaypoints: true,
+    showAlternatives: true,
     geocoder: L.Control.Geocoder.nominatim(),
+	//router: L.Routing.osrmv1("profile"),
     waypointNameFallback: function(latLng) {
         function zeroPad(n) {
             n = Math.round(n);
@@ -83,13 +88,23 @@ control = L.Routing.control({
         }
 
         return sexagesimal(latLng.lat, 'N', 'S') + ' ' + sexagesimal(latLng.lng, 'E', 'W');
-    }
-}).addTo(map_element);
+    },
+    altLineOptions: {
+        styles: [
+            {color: 'blue', opacity: 1, weight: 2}
+        ]
+    },
+})
+	//.on('routeselected', function(e) {
+    //var route = e.route;
+    //alert('Showing route between waypoints:\n' + JSON.stringify(route.inputWaypoints, null, 2));
+//})
+	.addTo(map_element);
 
-
+L.Routing.errorControl(control).addTo(map_element);
 
 // initiate list variable to store clicked location latitude and longitude
-var clickedLocation = [0, 0]
+//var clickedLocation = [0, 0]
 var marker = {};
 function createButton(label, container) {
     var btn = L.DomUtil.create('button', '', container);
@@ -97,6 +112,9 @@ function createButton(label, container) {
     btn.innerHTML = label;
     return btn;
 }
+
+
+
 
 map_element.on('click', function(e) {
     var container = L.DomUtil.create('div'),
@@ -110,16 +128,21 @@ map_element.on('click', function(e) {
 
     L.DomEvent.on(startBtn, 'click', function() {
         control.spliceWaypoints(0, 1, e.latlng);
-        map1.closePopup();
+        map_element.closePopup();
     });
     L.DomEvent.on(destBtn, 'click', function() {
         control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-        map1.closePopup();
+        map_element.closePopup();
     });
 });
 
+//var helloPopup = L.popup().setContent('Hello World!');
 
-/*
+L.easyButton('<img src="http://cdn.onlinewebfonts.com/svg/img_427005.png" style="width:15px">', function(btn, map){
+		//helloPopup.setLatLng(map.getCenter()).openOn(map);
+    control.getRouter().options.profile = "mapbox/walking";
+    control.route();
+}).addTo( map_element );
 
 /*
 var clickedLocation = [0, 0]
