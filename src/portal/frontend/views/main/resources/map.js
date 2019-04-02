@@ -10,6 +10,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1Ijoia3dhbnN1cHAiLCJhIjoiY2p0NjZwZXplMDNoczQ0cWwzZ3IzNHJsdiJ9.zqrnapW2W_gpZrtLu5dSMQ'
 }).addTo(map_element);
+L.Control.geocoder().addTo(map_element);
 
 map_element.invalidateSize();
 
@@ -31,6 +32,7 @@ map_element.on('locationfound', function(e) {
 	var radius = e.accuracy / 10;
 	currentLocation = [e.latlng.lat, e.latlng.lng]
 	console.log("currentLocation: ", currentLocation)
+    control.spliceWaypoints(0, 1, e.latlng);
 	L.marker(e.latlng).addTo(map_element)
 		.bindPopup("You are within " + radius + " meters from this point").openPopup();
 	L.circle(e.latlng, radius).addTo(map_element);
@@ -54,18 +56,89 @@ map_element.on('locationfound', function(e) {
 
 
 // INTERACTION WITH MAP
+
+control = L.Routing.control({
+    waypoints: [
+        L.latLng(),
+        L.latLng()
+    ],
+    router: L.Routing.mapbox('pk.eyJ1Ijoia3dhbnN1cHAiLCJhIjoiY2p0NjZwZXplMDNoczQ0cWwzZ3IzNHJsdiJ9.zqrnapW2W_gpZrtLu5dSMQ',{
+    	//possible profiles: mapbox/driving-traffic, mapbox/driving, mapbox/walking, mapbox/cycling
+    	profile: 'mapbox/driving'
+		}),
+	reverseWaypoints: true,
+    showAlternatives: true,
+    geocoder: L.Control.Geocoder.nominatim(),
+	//router: L.Routing.osrmv1("profile"),
+    waypointNameFallback: function(latLng) {
+        function zeroPad(n) {
+            n = Math.round(n);
+            return n < 10 ? '0' + n : n;
+        }
+        function sexagesimal(p, pos, neg) {
+            var n = Math.abs(p),
+                degs = Math.floor(n),
+                mins = (n - degs) * 60,
+                secs = (mins - Math.floor(mins)) * 60,
+                frac = Math.round((secs - Math.floor(secs)) * 100);
+            return (n >= 0 ? pos : neg) + degs + '°' +
+                zeroPad(mins) + '\'' +
+                zeroPad(secs) + '.' + zeroPad(frac) + '"';
+        }
+
+        return sexagesimal(latLng.lat, 'N', 'S') + ' ' + sexagesimal(latLng.lng, 'E', 'W');
+    },
+    altLineOptions: {
+        styles: [
+            {color: 'blue', opacity: 1, weight: 2}
+        ]
+    },
+})
+	//.on('routeselected', function(e) {
+    //var route = e.route;
+    //alert('Showing route between waypoints:\n' + JSON.stringify(route.inputWaypoints, null, 2));
+//})
+	.addTo(map_element);
+
+L.Routing.errorControl(control).addTo(map_element);
+
 // initiate list variable to store clicked location latitude and longitude
-var clickedLocation = [0, 0]
+//var clickedLocation = [0, 0]
 var marker = {};
-// map_element.on('click', onMapClick);
+function createButton(label, container) {
+    var btn = L.DomUtil.create('button', '', container);
+    btn.setAttribute('type', 'button');
+    btn.innerHTML = label;
+    return btn;
+}
+
+
+
+
 map_element.on('click', function(e) {
-	 clickedLocation = [e.latlng.lat, e.latlng.lng]
-	 console.log("clickedLocation: ", clickedLocation)
+    var container = L.DomUtil.create('div'),
+        startBtn = createButton('Start from this location', container),
+        destBtn = createButton('Go to this location', container);
 
-	if (marker != undefined) {
-		map_element.removeLayer(marker);
-	}
+    L.popup()
+        .setContent(container)
+        .setLatLng(e.latlng)
+        .openOn(map_element);
 
-	// add marker to clicked location
-	marker = L.marker(e.latlng).addTo(map_element);
+    L.DomEvent.on(startBtn, 'click', function() {
+        control.spliceWaypoints(0, 1, e.latlng);
+        map_element.closePopup();
+    });
+    L.DomEvent.on(destBtn, 'click', function() {
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+        map_element.closePopup();
+    });
 });
+
+//var helloPopup = L.popup().setContent('Hello World!');
+
+L.easyButton('<img src="http://cdn.onlinewebfonts.com/svg/img_427005.png" style="width:15px">', function(btn, map){
+		//helloPopup.setLatLng(map.getCenter()).openOn(map);
+    control.getRouter().options.profile = "mapbox/walking";
+    control.route();
+}).addTo( map_element );
