@@ -16,13 +16,16 @@ body {
 }
 
 #landing-header {
-    width: 100%;
     padding: 10vh 0;
+}
+
+#landing-header, .header {
+    width: 100%;
 	position: relative;
 	text-align: center;
 }
 
-#landing-header .main {
+#brand-text {
     text-transform: uppercase;
 	color: #fff;
 	font-family: 'Roboto', sans-serif;
