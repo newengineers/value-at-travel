@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask_login import login_required
 
 from portal.view import View
 from portal.view_resource import ViewResource
@@ -14,9 +15,10 @@ def index():
 
 
 @main_controller.route('/map')
+@login_required
 def map():
     return View(main_controller, view="map", resources={
         "map.js": ViewResource.Script,
-        "index.css" : ViewResource.StyleSheet,
+        "index.css": ViewResource.StyleSheet,
         "map.css": ViewResource.StyleSheet
     }).render()

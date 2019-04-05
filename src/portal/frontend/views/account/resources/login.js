@@ -18,7 +18,10 @@ $(function(){
         register_pw_confirmed_input: "#register_pw_confirm",
 
         ajax_url_login: 'account-login',
-        ajax_url_register: 'account-register'
+        ajax_url_register: 'account-register',
+
+        /* Misc references */
+        initial_page_on_login: '/map'
     };
 
     function test_mail(email_input){
@@ -34,14 +37,18 @@ $(function(){
         element.html(message);
     }
 
+    function form_toggle_view(anim_height='toggle', anim_opacity='toggle'){
+        // noinspection JSCheckFunctionSignatures
+        $(references.form_element).animate({
+            height: anim_height,
+            opacity: anim_opacity
+        }, "slow");
+    }
+
     $(references.form_toggle).click(function () {
         $(references.form_error).hide();
-        // noinspection JSCheckFunctionSignatures
-        $(references.form_element).animate(
-            {
-                height: "toggle",
-                opacity: "toggle"
-            }, "slow");
+        form_toggle_view();
+
     });
 
     $(references.form_login_container).submit(function (event) {
@@ -51,7 +58,7 @@ $(function(){
             .add('email', $(references.login_usr_input).val())
             .add('password', $(references.login_pw_input).val())
             .send(function(){
-                location.href='/';
+                location.href=references.initial_page_on_login;
             }, show_feedback
         );
     });
@@ -70,7 +77,10 @@ $(function(){
             .add('password', $(references.register_pw_input).val())
             .add('password_confirmed', $(references.register_pw_confirmed_input).val())
             .send(function(response){
+
                 show_feedback(response.message, '#658C4C');
+                form_toggle_view();
+
             }, show_feedback
         );
     });
