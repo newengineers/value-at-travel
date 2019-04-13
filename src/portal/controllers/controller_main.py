@@ -17,6 +17,6 @@ def index():
 def map():
     return View(main_controller, view="map", resources={
         "map.js": ViewResource.Script,
-        "index.css" : ViewResource.StyleSheet,
-        "map.css": ViewResource.StyleSheet
+        "css/index.css" : ViewResource.StyleSheet,
+        "css/map.css": ViewResource.StyleSheet
     }).render()
