@@ -51,7 +51,7 @@ $(function(){
             .add('email', $(references.login_usr_input).val())
             .add('password', $(references.login_pw_input).val())
             .send(function(){
-                location.href='/';
+                location.href='/map';
             }, show_feedback
         );
     });
