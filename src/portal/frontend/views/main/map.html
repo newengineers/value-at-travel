@@ -1,30 +1,57 @@
 {% set reference = url_for('static', filename='views/main/resources/') %}
+{% set reference2 = url_for('static', filename='views/main/assets/') %}
 
 
 <!--suppress ALL -->
+<link rel="stylesheet" href="{{ reference2 }}css/main.css" />
 <link rel="stylesheet" href="{{ reference }}css/leaflet.css"/>
 <link rel="stylesheet" href="{{ reference }}leaflet-routing-machine.css"/>
 <link rel="stylesheet" href="{{ reference }}Control.Geocoder.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">-->
 
-<div class="container">
-    <div class="header">
-        <h1 id="brand-text">Travalue</h1>
-        <div id="nav-steps">
-            <a href="#"><span class="far fa-circle"></span></a>
-            <a href="#"><span class="far fa-circle"></span></a>
-            <a href="#"><span class="far fa-circle"></span></a>
-            <a href="#"><span class="far fa-circle"></span></a>
-            <a href="#"><span class="far fa-circle"></span></a>
+<div id="page-wrapper" class="container">
+    <!-- Header -->
+    <header id="header" class="alt">
+        <h1><a href="index.html"><img id="nav-logo" src="{{ reference }}img/logo-horiz.png"></a></h1>
+        <nav id="nav">
+            <ul>
+                <li class="special">
+                    <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                    <div id="menu">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Why Travalue?</a></li>
+                            <li><a href="/account">Sign Up</a></li>
+                            <li><a href="/account">Log In</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="progress-bar">
+        <div class="inner">
+            <h2>Travalue</h2>
+            <ul class="icons major">
+                <!-- font awesome v 4.7 -->
+                <li><span class="icon fa-circle-o style1"><span class="label">1</span></span></li>
+                <li><span class="icon fa-circle-o style1"><span class="label">2</span></span></li>
+                <li><span class="icon fa-circle-o style1"><span class="label">3</span></span></li>
+                <li><span class="icon fa-circle-o style1"><span class="label">4</span></span></li>
+                <li><span class="icon fa-circle-o style1"><span class="label">5</span></span></li>
+            </ul>
         </div>
-    </div>
+    </section>
+
     <div class="map-container">
         <div id="map-reference"></div>
     </div>
 </div>
-<div class="bg"></div>
+<!--<div class="bg"></div>-->
 
 
 <script src="{{ reference }}leaflet.min.js"></script>
@@ -32,3 +59,12 @@
 <script src="{{ reference }}Control.Geocoder.js"></script>
 <script src="{{ reference }}leaflet-routing-machine.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+<!-- Scripts -->
+<script src="{{ reference2 }}js/jquery.min.js"></script>
+<script src="{{ reference2 }}js/jquery.scrollex.min.js"></script>
+<script src="{{ reference2 }}js/jquery.scrolly.min.js"></script>
+<script src="{{ reference2 }}js/browser.min.js"></script>
+<script src="{{ reference2 }}js/breakpoints.min.js"></script>
+<script src="{{ reference2 }}js/util.js"></script>
+<script src="{{ reference2 }}js/main.js"></script>
