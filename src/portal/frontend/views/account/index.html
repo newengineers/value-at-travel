@@ -1,20 +1,62 @@
-<div id="login-page">
-    <div class="form-login">
-        <div class="form-feedback">
-        </div>
-        <form method="post" class="register-form" id="form-register">
-            <input name="email" type="email" placeholder="email address" id="register_email"/>
-            <input name="password" type="password" placeholder="password" id="register_pw"/>
-            <input name="password_validated" type="password" placeholder="confirm password" id="register_pw_confirm"/>
-            <button>create</button>
-            <p class="message">Already registered? <a href="#">Login</a></p>
-        </form>
+{% set reference = url_for('static', filename='views/main/assets/') %}
+<link rel="stylesheet" href="{{ reference }}css/main.css" />
+<noscript><link rel="stylesheet" href="{{ reference }}/css/noscript.css" /></noscript>
+<!--<div id="login-page">-->
+<body class="landing is-preload">
+    <div id="page-wrapper">
 
-        <form method="post" class="login-form" id="form-login">
-            <input name="email" type="email" placeholder="email address" id="login_email"/>
-            <input name="password" type="password" placeholder="password" id="login_pw"/>
-            <button>login</button>
-            <p class="message">Not registered? <a href="#">Register an account</a></p>
-        </form>
+        <!-- Header -->
+        <header id="header" class="alt">
+            <h1><a href="index.html"><img id="nav-logo" src="{{ reference }}img/logo-horiz.png"></a></h1>
+            <nav id="nav">
+                <ul>
+                    <li class="special">
+                        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                        <div id="menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Why Travalue?</a></li>
+                                <li><a href="/account">Sign Up</a></li>
+                                <li><a href="/account">Log In</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="banner">
+            <div class="inner">
+                <div class="form-login">
+                    <div class="form-feedback">
+                    </div>
+                    <form method="post" class="register-form" id="form-register">
+                        <input name="email" type="email" placeholder="email address" id="register_email"/>
+                        <input name="password" type="password" placeholder="password" id="register_pw"/>
+                        <input name="password_validated" type="password" placeholder="confirm password" id="register_pw_confirm"/>
+                        <a href="#" id="register-btn" class="button primary">Register</a>
+                        <p class="message">Already registered? <a href="#">Login</a></p>
+                    </form>
+
+                    <form method="post" class="login-form" id="form-login">
+                        <input name="email" type="email" placeholder="email address" id="login_email"/>
+                        <input name="password" type="password" placeholder="password" id="login_pw"/>
+                        <a href="#" id="login-btn" class="button primary">login</a>
+                        <p class="message">Not registered? <a href="#">Register an account</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+<!-- Scripts -->
+		<script src="{{ reference }}js/jquery.min.js"></script>
+		<script src="{{ reference }}js/jquery.scrollex.min.js"></script>
+		<script src="{{ reference }}js/jquery.scrolly.min.js"></script>
+		<script src="{{ reference }}js/browser.min.js"></script>
+		<script src="{{ reference }}js/breakpoints.min.js"></script>
+		<script src="{{ reference }}js/util.js"></script>
+		<script src="{{ reference }}js/main.js"></script>
+</body>
+

@@ -74,5 +74,16 @@ $(function(){
             }, show_feedback
         );
     });
+});
 
+$(document).ready(function(){
+    $(document).on("click", "#login-btn", function(){
+        var form = $(this).closest("form");
+        form.submit();
+    });
+
+    $(document).on("click", "#register-btn", function(){
+        var form = $(this).closest("form");
+        form.submit();
+    });
 });

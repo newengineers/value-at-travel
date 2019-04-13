@@ -1,6 +1,6 @@
 body {
     /*noinspection CssUnknownTarget*/
-    background: url('/frontend/resources/images/background_default.png') no-repeat;
+    /*background: url('/frontend/resources/images/background_default.png') no-repeat;*/
 }
 
 #login-page {
