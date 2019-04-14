@@ -78,9 +78,3 @@ body {
 .form-login .register-form {
     display : none
 }
-
-@media only screen and (min-width: 570px) {
-    .form-login:hover{
-        width: 380px;
-    }
-}
