@@ -1,0 +1,3 @@
+# Dataset descriptions
+Resource from url(https://www.kaggle.com/yelp-dataset/yelp-dataset)
+More info on dataset on url(https://www.yelp.com/dataset/documentation/main)
