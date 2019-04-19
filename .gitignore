@@ -68,3 +68,7 @@ fabric.properties
 .idea/
 venv/
 src/flask_session/
+datasets/Dataset_Challenge_Dataset_Agreement.pdf
+datasets/yelp_academic_dataset_checkin.json
+datasets/yelp_academic_dataset_tip.json
+datasets/yelp_academic_dataset_review.json
